@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,8 @@ Route::get('/', function () {
 });
 
 Route::resource('students', StudentController::class);
+Route::resource('rooms', RoomController::class);
+Route::resource('reservations', ReservationController::class);
 
 Auth::routes();
 

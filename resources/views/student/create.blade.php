@@ -22,6 +22,7 @@
                     </ul>
                 </div><br />
             @endif
+            <div class="mb-3">{!! DNS2D::getBarcodeHTML('1910511101025', 'QRCODE') !!}</div>
         </div>
     </div>
 @endsection

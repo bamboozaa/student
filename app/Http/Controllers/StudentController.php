@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use App\Models\RoomType;
 
 class StudentController extends Controller
 {
@@ -17,7 +18,8 @@ class StudentController extends Controller
     {
         //$students = Student::all();
         //return view('student.index', compact('students'));
-        return view('student.home');
+        $data = RoomType::all();
+        return view('student.home', ['room_types' => $data]);
     }
 
     /**
@@ -65,6 +67,7 @@ class StudentController extends Controller
         foreach ($data as $key => $value) {
             $tis_arr[$key] = iconv("tis-620", "utf-8", $value);
         }
+        $resule[] = $tis_arr;
         /*if ($data != 0) {
             $data = DB::connection('odbc')->table('AVSREG.VIEWSTUDENTPROFILE')->where('STUDENT_ID', $id)->get();
             $data = $data[0];
@@ -95,8 +98,9 @@ class StudentController extends Controller
         }else{
             return null;
         }*/
-
-        return view('student.view', ['data' => $tis_arr]);
+        return collect($resule);
+        //return view('bookings.home', ['data' => $tis_arr]);
+        //return view('student.view', ['data' => $tis_arr]);
     }
 
     /**
