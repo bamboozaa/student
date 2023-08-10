@@ -66,8 +66,30 @@
     }
 
 
+
+
     @endphp
 </div>
 
+<script>
+    $("#student_id").on('change', function(){
+        var id = $("#student_id").val();
+        $.ajax({
+            //url: "{{ url("students"). "/" }}"+sid,
+            url: '{{ url('students/{id}') }}'.replace('{id}', id),
+            //url: "{{ route('reservations.show', "sid") }}",
+            type: 'GET',
+            data: {
+                'id': id
+            },
+           success: function(result){
+                //console.log(result)
+                $.each(result, function (key, value) {
+                    $('#exampleid').append(value.FNAME+" "+value.LNAME);
+                })
+           }
+        });
+    });
 
+</script>
 @endsection

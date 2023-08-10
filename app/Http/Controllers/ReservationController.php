@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\RoomType;
+use App\Models\Reservation;
 
 class ReservationController extends Controller
 {
@@ -36,7 +37,20 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+
+        //Reservation::create($request->all());
+        //return redirect('/reservations')->with('completed', 'Booking has been saved!');
+
+        return response()->json(['data' => $request->all()]);
+        /*$storeData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|max:255',
+            'phone' => 'required|numeric',
+            'password' => 'required|max:255',
+        ]);
+        $student = Student::create($storeData);
+        return redirect('/reservations')->with('completed', 'Student has been saved!');*/
     }
 
     /**
