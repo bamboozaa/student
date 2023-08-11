@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\RoomType;
 use App\Models\Reservation;
+use Carbon\Carbon;
 
 class ReservationController extends Controller
 {
@@ -15,8 +16,9 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $data = RoomType::all();
-        return view('bookings.home', ['room_types' => $data]);
+        $room_types = RoomType::all();
+        $bookings = Reservation::whereNull('checkout_date')->get();
+        return view('bookings.home', compact('bookings', 'room_types'));
     }
 
     /**
@@ -37,12 +39,46 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+        //dd($request->json()->all());
+        $input = $request->all();
+        $room = $input['room'];
+        // $type = $input['room_type'];
+        //$input['checkin_date'] = Carbon::now();
+        $digiCount = strlen((string) $input['student_id']);
+        if ($digiCount == 13) {
+            $exists = Reservation::where('student_id', $input['student_id'])->whereNull('checkout_date')->first();
+
+            if ($exists) {
+                $exists->checkout_date = Carbon::now();
+                $exists->save();
+                return response()->json(['room' => $room]);
+            } else {
+                $input['checkin_date'] = now();
+                Reservation::create($input);
+                return response()->json(['room' => $room]);
+            }
+        } else if ($digiCount == 5) {
+            $chunkSize = 4; // กำหนดความยาวของชุดย่อย (จำนวนตัวเลขในแต่ละชุด)
+            $chunks = str_split($input['student_id'], $chunkSize);
+
+            if (count($chunks) >= 2) {
+                list($room, $type) = $chunks;
+            } else {
+                $room = $digiCount;
+                $type = "";
+            }
+
+            /*echo "First chunk: " . $firstChunk . "\n";
+            echo "Second chunk: " . $secondChunk . "\n";*/
+            return response()->json(['room' => $room, 'type' => $type]);
+        }
 
         //Reservation::create($request->all());
         //return redirect('/reservations')->with('completed', 'Booking has been saved!');
 
-        return response()->json(['data' => $request->all()]);
+
+
+        //return response()->json(['data' => $request->all()]);
         /*$storeData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|max:255',

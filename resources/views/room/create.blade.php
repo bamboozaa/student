@@ -25,7 +25,7 @@
                 {!! Form::label('room_name', 'ชื่อห้อง') !!}
                 {!! Form::text('room_name', null, ['class' => 'form-control']) !!}
             </div>
-            <div class="mb-3">{!! DNS2D::getBarcodeHTML('017400', 'QRCODE') !!}</div>
+            <div class="mb-3">{!! DNS2D::getBarcodeHTML('7401', 'QRCODE') !!}</div>
 
         </div>
         <div class="card-footer">
