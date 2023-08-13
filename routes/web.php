@@ -20,6 +20,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/mockup01', function () {
+    return view('mockup01');
+});
+
+Route::get('/mockup02', function () {
+    return view('mockup02');
+});
+
+Route::get('/mockup03', function () {
+    return view('mockup03');
+});
+
+Route::get('/radio01', function () {
+    return view('radio01');
+});
+
 Route::resource('students', StudentController::class);
 Route::resource('rooms', RoomController::class);
 Route::resource('reservations', ReservationController::class);

@@ -11,4 +11,9 @@ class Reservation extends Model
     protected $table = 'reservations';
     protected $fillable = ['room', 'student_id', 'room_type', 'checkin_date', 'checkout_date'];
 
+    public function roomtype()
+    {
+        return $this->hasOne(RoomType::class, 'id', 'room_type');
+    }
+
 }

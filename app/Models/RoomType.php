@@ -11,4 +11,9 @@ class RoomType extends Model
     protected $table = 'room_types';
     protected $fillable = ['name'];
 
+    public function reservation()
+    {
+        return $this->belongsTo(Reservation::class);
+    }
+
 }

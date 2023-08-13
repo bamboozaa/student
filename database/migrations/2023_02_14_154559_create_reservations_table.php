@@ -16,12 +16,12 @@ class CreateReservationsTable extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->string('room');
-            $table->integer('seat');
+            $table->integer('seat')->nullable();
             $table->string('student_id');
-            $table->string('student_fname');
-            $table->string('student_lname');
+            $table->string('student_fname')->nullable();
+            $table->string('student_lname')->nullable();
             $table->datetime('checkin_date');
-            $table->datetime('checkout_date');
+            $table->datetime('checkout_date')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });

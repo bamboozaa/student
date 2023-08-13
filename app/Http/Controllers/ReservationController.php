@@ -42,6 +42,7 @@ class ReservationController extends Controller
         //dd($request->json()->all());
         $input = $request->all();
         $room = $input['room'];
+        $input['room_type'] = $request->room_type_value;
         // $type = $input['room_type'];
         //$input['checkin_date'] = Carbon::now();
         $digiCount = strlen((string) $input['student_id']);
@@ -51,11 +52,11 @@ class ReservationController extends Controller
             if ($exists) {
                 $exists->checkout_date = Carbon::now();
                 $exists->save();
-                return response()->json(['room' => $room]);
+                return response()->json(['room' => $room, 'type' => $input['room_type'], 'status' => 'success', 'message' => 'ระบบได้ทำการลงชื่อออกจากห้องเรียบร้อยแล้ว']);
             } else {
                 $input['checkin_date'] = now();
                 Reservation::create($input);
-                return response()->json(['room' => $room]);
+                return response()->json(['room' => $room, 'type' => $input['room_type'], 'status' => 'success', 'message' => 'ระบบได้ทำการลงชื่อเข้าห้องเรียบร้อยแล้ว']);
             }
         } else if ($digiCount == 5) {
             $chunkSize = 4; // กำหนดความยาวของชุดย่อย (จำนวนตัวเลขในแต่ละชุด)
@@ -70,7 +71,7 @@ class ReservationController extends Controller
 
             /*echo "First chunk: " . $firstChunk . "\n";
             echo "Second chunk: " . $secondChunk . "\n";*/
-            return response()->json(['room' => $room, 'type' => $type]);
+            return response()->json(['room' => $room, 'type' => $type, 'status' => 'success', 'message' => 'ระบบได้ทำการเปลี่ยนหมายเลขห้องเรียบร้อยแล้ว']);
         }
 
         //Reservation::create($request->all());
