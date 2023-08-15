@@ -16,9 +16,9 @@ use App\Http\Controllers\ReservationController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 Route::get('/mockup01', function () {
     return view('mockup01');

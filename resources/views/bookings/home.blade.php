@@ -20,7 +20,7 @@
 
     <div class="row">
         <div class="col-md-12 text-center">
-            <h2>ลงทะเบียนเข้าใช้งานห้องปฏิบัติการคอมพิวเตอร์</h2>
+            <h2 style="color:blue"><strong>CHECK-IN</strong></h2>
             <p id="realTime"></p>
         </div>
     </div>
@@ -150,7 +150,7 @@
                                 title: response.status === 'success' ? 'Success' :
                                     'Error',
                                 text: response.message,
-                                timer: 240000, // Timer in milliseconds (3 seconds)
+                                timer: 6000, // Timer in milliseconds (3 seconds)
                                 showConfirmButton: false // Hide the "OK" button
                             });
                             redirectToAnotherPage(response);
