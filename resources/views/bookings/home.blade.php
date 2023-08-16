@@ -8,6 +8,22 @@
         body {
             font-family: 'Mitr', sans-serif;
         }
+
+        /* Home section */
+
+        .home {
+            width: 100%;
+            height: 100vh;
+            background-image: url({{ asset('') }});
+            background-position: center;
+            /* background-size: cover; */
+            background-size: 30%;
+            background-repeat: no-repeat;
+        }
+
+        /* .navTrigger {
+                display: none;
+            } */
     </style>
 @stop
 @section('content')
@@ -17,113 +33,91 @@
             ${$key} = $value;
         endforeach;
     @endphp
-
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <h2 style="color:blue"><strong>CHECK-IN</strong></h2>
-            <p id="realTime"></p>
-        </div>
-    </div>
-    {{-- {!! Form::open(['method' => 'POST', 'action' => 'App\Http\Controllers\ReservationController@store']) !!} --}}
-    {{-- <form id="myForm">
-        @csrf
-        <div class="row"> --}}
-    {{-- <div class="col-md-12">
-                @foreach ($room_types as $key => $room_type)
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="room_type_value" id="Radio{{ $key+1 }}" value="{{ $room_type->id }}">
-                    <label class="form-check-label" for="Radio{{ $key+1 }}">{{ $room_type->name }}</label>
-                </div>
-                @endforeach
-            </div> --}}
-    {{-- </div> --}}
-    {{-- <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="lab_number" name="room" placeholder="หมายเลขห้อง">
-            <label for="lab_number">หมายเลขห้อง</label>
-        </div> --}}
-    {{-- <div class="form-floating">
-            <input type="text" class="form-control" id="student_id" name="student_id" placeholder="รหัสนักศึกษา" autofocus>
-            <label for="student_id">รหัสนักศึกษา</label>
-        </div> --}}
-
-    {{-- <a href="#" class="submit-data">Submit data</a> --}}
-
-    {{-- <div id="exampleid"></div> --}}
-
-
-    {{-- </form> --}}
-
-
-
-
-    <form id="myForm">
-        @csrf
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <fieldset class="border p-3 px-auto">
-                    <legend class="float-none w-auto">ประเภทการใช้งาน</legend>
-                    @foreach ($room_types as $key => $room_type)
-                        <div class="form-check form-check-inline mb-4">
-                            <input class="form-check-input" type="radio" name="room_type_value"
-                                id="Radio{{ $key + 1 }}" value="{{ $room_type->id }}"
-                                @if (isset($type)) @if ($room_type->id == $type) checked @endif
-                                @endif>
-                            <label class="form-check-label" for="Radio{{ $key + 1 }}">{{ $room_type->name }}</label>
-                        </div>
-                    @endforeach
-                </fieldset>
+    <section class="home">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                {{-- <h2 style="color:blue"><strong>CHECK-IN</strong></h2> --}}
+                <p id="realTime"></p>
             </div>
-            <div class="col-md-6">
-                <fieldset class="border px-3 pb-4">
-                    <legend class="float-none w-auto">หมายเลขห้อง</legend>
-                    <div class="form-floating mt+1">
-                        <input type="text" class="form-control" id="room" name="room"
-                            value="{{ isset($room) ? $room : '' }}">
+            <form id="myForm">
+                @csrf
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <fieldset class="border p-3 px-auto">
+                            <legend class="float-none w-auto">ประเภทการใช้งาน</legend>
+                            @foreach ($room_types as $key => $room_type)
+                                <div class="form-check form-check-inline mb-4">
+                                    <input class="form-check-input" type="radio" name="room_type_value"
+                                        id="Radio{{ $key + 1 }}" value="{{ $room_type->id }}"
+                                        @if (isset($type)) @if ($room_type->id == $type) checked @endif
+                                        @endif>
+                                    <label class="form-check-label"
+                                        for="Radio{{ $key + 1 }}">{{ $room_type->name }}</label>
+                                </div>
+                            @endforeach
+                        </fieldset>
                     </div>
-                </fieldset>
-            </div>
-        </div>
-        <div class="form-floating">
-            <input type="text" class="form-control" id="student_id" name="student_id" placeholder="รหัสนักศึกษา"
-                autofocus>
-            <label for="student_id">แสกนบาร์โค๊ด</label>
+                    <div class="col-md-6">
+                        <fieldset class="border px-3 pb-4">
+                            <legend class="float-none w-auto">หมายเลขห้อง</legend>
+                            <div class="form-floating mt+1">
+                                <input type="text" class="form-control" id="room" name="room"
+                                    value="{{ isset($room) ? $room : '' }}">
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="student_id" name="student_id" placeholder="รหัสนักศึกษา"
+                        autofocus>
+                    <label for="student_id">แสกนบาร์โค๊ด</label>
+                </div>
+
+            </form>
         </div>
 
-    </form>
-    <div class="row">
-        <fieldset class="border p-3 mt-3">
-            <legend class="float-none w-auto">การเข้าใช้ห้องปฏิบัติการคอมพิวเตอร์</legend>
-            <table class="table table-responsive table-bordered">
-                <thead class="table-secondary">
-                    <tr>
-                        <td>หมายเลขห้อง</td>
-                        <td>ประเภทการใช้ห้อง</td>
-                        <td>รหัสนักศึกษา</td>
-                        <td>วัน-เวลาใช้ห้อง</td>
-                    </tr>
-                </thead>
-                @if (count($bookings) > 0)
-                    @foreach ($bookings as $key => $booking)
+
+        <div class="row">
+            <fieldset class="border p-3 mt-3">
+                <legend class="float-none w-auto">การเข้าใช้ห้องปฏิบัติการคอมพิวเตอร์</legend>
+                <table class="table table-responsive table-bordered">
+                    <thead class="table-secondary">
                         <tr>
-                            @php
-                                $carbonDate = Carbon\Carbon::parse($booking->checkin_date);
-                                $thaiDate = $carbonDate->locale('th')->tz('Asia/Bangkok')->isoFormat('LLL'); // 'LL' represents the long date format
-                            @endphp
-                            <td>{{ $booking->room }}</td>
-                            <td>{{ $booking->roomtype->name }}</td>
-                            <td>{{ $booking->student_id }}</td>
-                            <td>{{ $thaiDate }}</td>
+                            <td>หมายเลขห้อง</td>
+                            <td>ประเภทการใช้ห้อง</td>
+                            <td>รหัสนักศึกษา</td>
+                            <td>วัน-เวลาใช้ห้อง</td>
                         </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td colspan="4">ไม่พบข้อมูลการใช้ห้องในขณะนี้</td>
-                    </tr>
-                @endif
+                    </thead>
+                    @if (count($bookings) > 0)
+                        @foreach ($bookings as $key => $booking)
+                            <tr>
+                                @php
+                                    $carbonDate = Carbon\Carbon::parse($booking->checkin_date);
+                                    $thaiDate = $carbonDate
+                                        ->locale('th')
+                                        ->tz('Asia/Bangkok')
+                                        ->isoFormat('LLL'); // 'LL' represents the long date format
+                                @endphp
+                                <td>{{ $booking->room }}</td>
+                                <td>{{ $booking->roomtype->name }}</td>
+                                <td>{{ $booking->student_id }}</td>
+                                <td>{{ $thaiDate }}</td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="4">ไม่พบข้อมูลการใช้ห้องในขณะนี้</td>
+                        </tr>
+                    @endif
 
-            </table>
-        </fieldset>
-    </div>
+                </table>
+            </fieldset>
+        </div>
+
+    </section>
+
+
 
     <script>
         $(document).ready(function() {
